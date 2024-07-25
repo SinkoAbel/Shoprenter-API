@@ -34,7 +34,8 @@
 - php artisan serve
 
 ## Endpoints
-| Method | Endpoint           | Auth |
-|--------|--------------------|------|
-| GET    | /api/secret/{hash} | No   |
-| POST   | /api/secret        | No   |
+| Method | Endpoint            | Auth | Description            |
+|--------|---------------------|------|------------------------|
+| GET    | /api/secret/{hash}  | No   | Get a secret           |
+| POST   | /api/secret         | No   | Create a secret        |
+| GET    | /api/documentation  | No   | Endpoint documentation |
