@@ -1,0 +1,158 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Shoprenter API Documentation",
+        "description": "This is the swagger endpoint documentation of the project for Shoprenter.",
+        "version": "1.0.0"
+    },
+    "paths": {
+        "/api/secret/{hash}": {
+            "get": {
+                "tags": [
+                    "Secret"
+                ],
+                "summary": "Show a secret.",
+                "description": "Returns a secret item from DB.",
+                "operationId": "showSecret",
+                "parameters": [
+                    {
+                        "name": "hash",
+                        "in": "path",
+                        "description": "Hash/ID of secret item.",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Successful operation.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Secret"
+                                }
+                            },
+                            "application/xml": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Secret"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Secret is expired.",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "nubmer",
+                                            "example": "404"
+                                        },
+                                        "error_message": {
+                                            "type": "string",
+                                            "example": "Secret expired"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            },
+                            "application/xml": {
+                                "schema": {
+                                    "properties": {
+                                        "status": {
+                                            "type": "nubmer",
+                                            "example": "404"
+                                        }
+                                    },
+                                    "type": "object"
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/api/secret": {
+            "post": {
+                "tags": [
+                    "Secret"
+                ],
+                "summary": "Store a new secret.",
+                "description": "Store a new secret.",
+                "operationId": "storeSecret",
+                "requestBody": {
+                    "description": "Data for post request.",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "properties": {
+                                    "secret": {
+                                        "type": "string",
+                                        "example": "New secret"
+                                    },
+                                    "expire_after_views": {
+                                        "type": "number",
+                                        "example": "5"
+                                    },
+                                    "expire_after_minutes": {
+                                        "type": "number",
+                                        "example": "3"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Secret"
+                                }
+                            },
+                            "application/xml": {
+                                "schema": {
+                                    "$ref": "#/components/schemas/Secret"
+                                }
+                            }
+                        }
+                    },
+                    "405": {
+                        "description": "Invalid input."
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "Secret": {
+                "title": "Secret",
+                "properties": {
+                    "secret_text": {
+                        "type": "string"
+                    },
+                    "remaining_views": {
+                        "type": "number"
+                    },
+                    "expires_at": {
+                        "type": "string"
+                    }
+                },
+                "type": "object"
+            }
+        }
+    },
+    "tags": [
+        {
+            "name": "Secret",
+            "description": "Secret"
+        }
+    ]
+}
