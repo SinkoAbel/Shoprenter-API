@@ -31,6 +31,9 @@
 - cd repo
 - composer install
 - npm install
+- copy .env.example and name it as .env
+- inside .env configure db settings
+- php artisan migrate
 - php artisan serve
 
 ## Endpoints
